@@ -3,36 +3,54 @@ import { useState } from 'react';
 
 
 function App() {
-  let [isOpened, invert] = useState(false);
-  let [mainNavClassName, classToggle] = useState('main_nav closed');
+  let [isOpened, setStatus] = useState(false);
+  let [hamburgerMenuClassName, classToggle] = useState('hamburger_menu');
+  let [mainNavClassName, classToggle1] = useState('main_nav closed');
+  let [mainNavListName, classToggle2] = useState('main_nav_list');
 
   function reactToClick() {
-    invert(isOpened = !isOpened);
-    if(isOpened) {
-      classToggle(mainNavClassName = 'main_nav');
+    if (!isOpened) {
+      setStatus(isOpened = true);
+      classToggle(hamburgerMenuClassName = 'hamburger_menu hamburger_menu_opened');
+      classToggle1(mainNavClassName = 'main_nav');
+      classToggle2(mainNavListName = 'main_nav_list main_nav_list_opened');
     } else {
-      setTimeout( () => {
-        classToggle(mainNavClassName = 'main_nav closed');
-      }, 250);
+      closeMenu();
     }
   }
-  
+
+  function closeMenu() {
+    setTimeout(() => {
+      setStatus(isOpened = false);
+      classToggle(hamburgerMenuClassName = 'hamburger_menu');
+      classToggle1(mainNavClassName = 'main_nav closed');
+      classToggle2(mainNavListName = 'main_nav_list');
+    }, 250);
+  }
+
+  function reactToClick2() {
+    if (isOpened) {
+      isOpened = false;
+      closeMenu();
+    }
+  }
+
   return (
     <div className='App'>
       <div className='container'>
         <header className='main_header'>
-          <button type='button' className={ isOpened ? 'hamburger_menu hamburger_menu_opened' : 'hamburger_menu' } onClick = { reactToClick }>
+          <button type='button' className={hamburgerMenuClassName} onClick={reactToClick}>
             <span className='menu_icon'>
               <span className='line-1'></span>
               <span className='line-2'></span>
               <span className='line-3'></span>
             </span>
           </button>
-          <nav className = { mainNavClassName } >
-            <ul className = { isOpened ? 'main_nav_list main_nav_list_opened' : 'main_nav_list' }>
-              <li className='nav_item'><a href='#about_us' className='nav_link'>About Us</a></li>
-              <li className='nav_item'><a href='#services' className='nav_link'>Services</a></li>
-              <li className='nav_item'><a href='#contact' className='nav_link'>Contact</a></li>
+          <nav className={mainNavClassName} >
+            <ul className={mainNavListName}>
+              <li className='nav_item'><a href='#about_us' className='nav_link' onClick={reactToClick2}>About Us</a></li>
+              <li className='nav_item'><a href='#services' className='nav_link' onClick={reactToClick2}>Services</a></li>
+              <li className='nav_item'><a href='#contact' className='nav_link' onClick={reactToClick2}>Contact</a></li>
             </ul>
           </nav>
         </header>
@@ -63,8 +81,8 @@ function App() {
         </main>
         <footer className='main_footer'>
           <address id='contact'>
-            Autor: Lucien L. Erard<br/>
-            E-Mail: lucera@dummy.org<br/>
+            Autor: Lucien L. Erard<br />
+            E-Mail: lucera@dummy.org<br />
           </address>
         </footer>
       </div>

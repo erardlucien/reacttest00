@@ -43,6 +43,10 @@ html {
 .main_header {
   background-color: var(--clr-secondary);
   padding-top: 1.5rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99;
 }
 
 /* hamburger_menu */
@@ -205,6 +209,7 @@ section {
 }
 
 section h1 {
+  scroll-margin-top: 15rem;
   padding: 3rem 2.5rem;
 }
 
