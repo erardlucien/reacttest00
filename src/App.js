@@ -15,22 +15,22 @@ function App() {
       classToggle1(mainNavClassName = 'main_nav');
       classToggle2(mainNavListName = 'main_nav_list main_nav_list_opened');
     } else {
+      setStatus(isOpened = false);
       closeMenu();
     }
   }
 
   function closeMenu() {
+    classToggle(hamburgerMenuClassName = 'hamburger_menu');
+    classToggle2(mainNavListName = 'main_nav_list');
     setTimeout(() => {
-      setStatus(isOpened = false);
-      classToggle(hamburgerMenuClassName = 'hamburger_menu');
       classToggle1(mainNavClassName = 'main_nav closed');
-      classToggle2(mainNavListName = 'main_nav_list');
     }, 250);
   }
 
   function reactToClick2() {
     if (isOpened) {
-      isOpened = false;
+      setStatus(isOpened = false);
       closeMenu();
     }
   }
